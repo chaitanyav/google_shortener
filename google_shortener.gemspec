@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["me@chaitanyavellanki.com"]
   gem.description   = %q{Rubygem to shorten long url}
   gem.summary       = %q{Uses url shortener services from Google}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/chaitanyav/google_shortener"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
