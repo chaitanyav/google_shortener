@@ -55,7 +55,7 @@ class GoogleShortener
 
   def get_from_google_url_shortener_api(short_url)
     uri = URI(google_url_shortener_location)
-    params = {'shortUrl' => short_url}
+    params = {'shortUrl' => short_url, 'key' => @api_key}
     uri.query = URI.encode_www_form(params)
     req = Net::HTTP::Get.new(uri.request_uri)
     req.content_type = 'application/json'
