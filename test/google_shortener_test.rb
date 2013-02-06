@@ -42,6 +42,28 @@ class GoogleShortenerTest < MiniTest::Unit::TestCase
     assert_raises ArgumentError do
       google_shortener.expand
     end
+  end
 
+  def test_analytics_with_short_url_and_projection
+    google_shortener = GoogleShortener.new
+    analytics_hash = google_shortener.analytics('http://goo.gl/fbsS')
+    assert_equal ['kind', 'id', 'longUrl', 'status', 'created', 'analytics'], analytics_hash.keys
+
+    analytics_hash = google_shortener.analytics('http://goo.gl/fbsS', 'ANALYTICS_CLICKS')
+    assert_equal ['kind', 'id', 'longUrl', 'status', 'analytics'], analytics_hash.keys
+
+    analytics_hash = google_shortener.analytics('http://goo.gl/fbsS', 'ANALYTICS_TOP_STRINGS')
+    assert_equal ['kind', 'id', 'longUrl', 'status', 'analytics'], analytics_hash.keys
+
+    assert_raises ArgumentError do
+      google_shortener.analytics('http://goo.gl/fbsS', 'foo')
+    end
+  end
+
+  def test_analytics_without_short_url
+    google_shortener = GoogleShortener.new
+    assert_raises ArgumentError do
+      google_shortener.analytics(nil)
+    end
   end
 end

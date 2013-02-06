@@ -29,6 +29,38 @@ Usage:
     irb(main):005:0> google_shortener.api_key='your own API key'
     => "your own API key"
 
+    Analytics can be obtained for the short URL, to obtain detail
+    information set projection to 'FULL'. Other values for projection are
+    'ANALYTICS_CLICKS', 'ANALYTICS_TOP_STRINGS'
+
+    irb(main):006:0> google_shortener.analytics(google_shortener.shorten('http://www.twitter.com'), 'ANALYTICS_CLICKS')
+    => {
+    "kind"=>"urlshortener#url",
+    "id"=>"http://goo.gl/CbHS",
+    "longUrl"=>"http://www.twitter.com/",
+    "status"=>"OK",
+    "analytics"=>{
+    "allTime"=>{
+    "shortUrlClicks"=>"655",
+    "longUrlClicks"=>"4515"
+    },
+    "month"=>{
+    "shortUrlClicks"=>"17",
+    "longUrlClicks"=>"50"
+    },
+    "week"=>{
+    "shortUrlClicks"=>"2",
+    "longUrlClicks"=>"12"
+    },
+    "day"=>{
+    "shortUrlClicks"=>"0",
+    "longUrlClicks"=>"5"},
+    "twoHours"=>{
+    "shortUrlClicks"=>"0",
+    "longUrlClicks"=>"0"
+    }}}
+
+
 ## Contributing
 
 1. Fork it

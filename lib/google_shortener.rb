@@ -4,12 +4,16 @@ require 'json'
 class GoogleShortener
   attr_accessor :api_key
 
+  PROJECTIONS = ['FULL', 'ANALYTICS_CLICKS', 'ANALYTICS_TOP_STRINGS']
+
   def initialize
     @api_key = 'AIzaSyDOY31us5qGR_MdMQKaTfGlhpOi8w3Ur7U'
   end
 
   def shorten(long_url)
-    if long_url.nil?
+    raise ArgumentError, "Long URL should be a String" unless long_url.is_a?(String)
+
+    if long_url.empty?
       raise ArgumentError, 'Long URL is required'
     end
 
@@ -24,7 +28,9 @@ class GoogleShortener
   end
 
   def expand(short_url)
-    if short_url.nil?
+    raise ArgumentError, "Short URL should be a String" unless short_url.is_a?(String)
+
+    if short_url.empty?
       raise ArgumentError, 'Short URL is required'
     end
     res = get_from_google_url_shortener_api(short_url)
@@ -35,6 +41,20 @@ class GoogleShortener
     else
       res_body
     end
+  end
+
+  def analytics(short_url, projection='FULL')
+    raise ArgumentError, "Short URL should be a String" unless short_url.is_a?(String)
+
+    if short_url.empty?
+      raise ArgumentError, 'Short URL is required'
+    end
+
+    raise ArgumentError, "Projection should be a String" unless projection.is_a?(String)
+    raise ArgumentError, "Projection can only be #{PROJECTIONS.join(',')}" unless PROJECTIONS.include?(projection)
+
+    res = get_from_google_url_shortener_api(short_url, {'projection' => projection})
+    res_body = JSON.load(res.body)
   end
 
   def valid_api_key?
@@ -53,9 +73,10 @@ class GoogleShortener
     'https://www.googleapis.com/urlshortener/v1/url'
   end
 
-  def get_from_google_url_shortener_api(short_url)
+  def get_from_google_url_shortener_api(short_url, options = {})
     uri = URI(google_url_shortener_location)
     params = {'shortUrl' => short_url, 'key' => @api_key}
+    params = params.merge(options) unless options.empty?
     uri.query = URI.encode_www_form(params)
     req = Net::HTTP::Get.new(uri.request_uri)
     req.content_type = 'application/json'
