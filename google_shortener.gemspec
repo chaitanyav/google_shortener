@@ -6,8 +6,8 @@ require 'google_shortener/version'
 Gem::Specification.new do |gem|
   gem.name          = "google_shortener"
   gem.version       = VERSION
-  gem.authors       = ["Chaitanya Vellanki"]
-  gem.email         = ["me@chaitanyavellanki.com"]
+  gem.authors       = ["NagaChaitanya Vellanki"]
+  gem.email         = ["nagachaitanya.vellanki.com"]
   gem.description   = %q{Rubygem to shorten long url}
   gem.summary       = %q{Uses url shortener services from Google}
   gem.homepage      = "https://github.com/chaitanyav/google_shortener"
