@@ -1,3 +1,5 @@
+# This gem is no longer in development. I highly recommend using other
+alternatives
 GoogleShortener is a Rubygem to create short url's using Google's URL shortener API (http://goo.gl/)
 ===============================================================================
 
