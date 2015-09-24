@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'google_shortener'
 
-class GoogleShortenerTest < MiniTest::Unit::TestCase
+class GoogleShortenerTest < Minitest::Test
   def test_default_api_key
     google_shortener = GoogleShortener.new
     assert 'AIzaSyDOY31us5qGR_MdMQKaTfGlhpOi8w3Ur7U', google_shortener.api_key
